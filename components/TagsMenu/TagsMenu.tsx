@@ -1,21 +1,39 @@
-import { Tag } from "@/types/note"; // Тут тип
-import css from "./TagsMenu.module.css";
+"use client";
 
-const tags: Tag[] = ["Work", "Personal", "Meeting", "Shopping", "Todo"];
+import { useState } from "react";
+import css from "./TagsMenu.module.css";
+import Link from "next/link";
+import { log } from "console";
+
+const tags: string[] = [
+  "All",
+  "Work",
+  "Personal",
+  "Meeting",
+  "Shopping",
+  "Todo",
+];
 
 const TagsMenu = () => {
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const handleMenuToggle = () => setMenuIsOpen(!menuIsOpen);
+
   return (
     <div className={css.menuContainer}>
-      <button className={css.menuButton}>Notes ▾</button>
-      <ul className={css.menuList}>
-        {tags.map((tag) => (
-          <li key={tag} className={css.menuItem}>
-            <a href={`/notes/${tag.toLowerCase()}`} className={css.menuLink}>
-              {tag}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <button onClick={handleMenuToggle} className={css.menuButton}>
+        Notes ▾
+      </button>
+      {menuIsOpen && (
+        <ul className={css.menuList}>
+          {tags.map((tag) => (
+            <li key={tag} className={css.menuItem}>
+              <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+                {tag}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

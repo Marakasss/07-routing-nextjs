@@ -12,12 +12,17 @@ import NoteForm from "@/components/NoteForm/NoteForm";
 import { useDebounce } from "use-debounce";
 import Logo from "@/components/Logo/Logo";
 import type { FetchNotesResponse } from "@/lib/api";
+import { Tag } from "@/types/note";
 
 interface NotesClientProps {
   initialNotesData: FetchNotesResponse;
+  tag?: Tag;
 }
 
-export default function NotesClient({ initialNotesData }: NotesClientProps) {
+export default function NotesClient({
+  initialNotesData,
+  tag,
+}: NotesClientProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -26,8 +31,8 @@ export default function NotesClient({ initialNotesData }: NotesClientProps) {
   const [debouncedInputValue] = useDebounce(inputValue, 500);
 
   const notes = useQuery({
-    queryKey: ["notes", debouncedInputValue, currentPage],
-    queryFn: () => fetchNotes(debouncedInputValue, currentPage),
+    queryKey: ["notes", debouncedInputValue, currentPage, tag],
+    queryFn: () => fetchNotes(debouncedInputValue, currentPage, tag),
     placeholderData: keepPreviousData,
     initialData:
       !debouncedInputValue && currentPage === 1 ? initialNotesData : undefined,
