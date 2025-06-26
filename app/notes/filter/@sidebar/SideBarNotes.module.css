@@ -9,15 +9,17 @@
 }
 
 .menuLink {
+  color: #5f2a05;
   text-decoration: none;
-  color: white;
-  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
   display: block;
-  padding: 8px 16px;
-  transition: background-color 0.3s ease;
+
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .menuLink:hover {
-  background-color: #444;
-  color: #ddd;
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateX(4px);
+  backdrop-filter: blur(4px);
 }

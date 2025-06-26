@@ -50,7 +50,7 @@ export default function NotesClient({
       <div className={css.app}>
         {/* -------HEADER ELEMENTS--------- */}
 
-        <header className={css.toolbar}>
+        <div className={css.toolbar}>
           <div>
             <SearchBox value={inputValue} onSearch={handleSearchChange} />
           </div>
@@ -62,7 +62,7 @@ export default function NotesClient({
           >
             Create note +
           </button>
-        </header>
+        </div>
 
         {/* -------NOTELIST--------- */}
 
