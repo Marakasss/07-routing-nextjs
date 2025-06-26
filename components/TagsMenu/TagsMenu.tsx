@@ -3,16 +3,7 @@
 import { useState } from "react";
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
-import { log } from "console";
-
-const tags: string[] = [
-  "All",
-  "Work",
-  "Personal",
-  "Meeting",
-  "Shopping",
-  "Todo",
-];
+import { tags } from "@/constants/tags";
 
 const TagsMenu = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
