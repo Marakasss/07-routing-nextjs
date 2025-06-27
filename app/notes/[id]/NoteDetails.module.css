@@ -1,6 +1,6 @@
 .container {
   max-width: 800px;
-  margin: 32px auto;
+  margin: auto auto;
   padding: 24px;
   background-color: #dbd1d1;
   background-image: linear-gradient(to bottom, #28b4ab12, #24b96e43);
