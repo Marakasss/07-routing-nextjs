@@ -22,5 +22,5 @@
 
 .input:focus {
   box-shadow: inset 1px 1px 2px rgba(199, 139, 96, 0.573),
-    inset -1px -1px 2px #fff, 0.15em 0.15em saddlebrown;
+    inset -1px -1px 0px #edac86, 0.15em 0.15em saddlebrown;
 }
