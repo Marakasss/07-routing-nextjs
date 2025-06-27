@@ -20,7 +20,7 @@
 
 .menuLink.active,
 .menuLink:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.477);
   transform: translateX(4px);
   backdrop-filter: blur(4px);
 }

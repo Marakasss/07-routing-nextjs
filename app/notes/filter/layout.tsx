@@ -7,10 +7,10 @@ interface NotesLayoutProps {
 
 const NotesLayout = ({ children, sidebar }: NotesLayoutProps) => {
   return (
-    <div className={css.container}>
+    <section className={css.container}>
       <aside className={css.sidebar}>{sidebar}</aside>
       <div className={css.notesWrapper}>{children}</div>
-    </div>
+    </section>
   );
 };
 export default NotesLayout;
