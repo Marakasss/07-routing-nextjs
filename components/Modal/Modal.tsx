@@ -1,27 +1,36 @@
 "use client";
 import { createPortal } from "react-dom";
 import css from "./NoteModal.module.css";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface NoteModalProps {
   children: React.ReactNode;
+  onClose?: () => void;
 }
 
-const Modal = ({ children }: NoteModalProps) => {
+const Modal = ({ children, onClose }: NoteModalProps) => {
   const router = useRouter();
 
+  const handleClose = useCallback(() => {
+    if (onClose) {
+      onClose();
+    } else {
+      router.back();
+    }
+  }, [onClose, router]);
+
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) router.back();
+    if (e.target === e.currentTarget) handleClose();
   };
 
   useEffect(() => {
     const handleEscClick = (e: KeyboardEvent) => {
-      if (e.key === "Escape") router.back();
+      if (e.key === "Escape") handleClose();
     };
     document.addEventListener("keydown", handleEscClick);
     return () => document.removeEventListener("keydown", handleEscClick);
-  }, [router]);
+  }, [handleClose]);
 
   return createPortal(
     <div
