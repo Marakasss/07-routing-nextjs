@@ -2,7 +2,6 @@
 import { createPortal } from "react-dom";
 import css from "./NoteModal.module.css";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 interface NoteModalProps {
   children: React.ReactNode;
