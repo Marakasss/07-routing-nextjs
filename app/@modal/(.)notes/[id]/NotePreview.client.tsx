@@ -1,9 +1,11 @@
 "use client";
 import css from "../../../notes/[id]/NoteDetails.module.css";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
+import { useCallback } from "react";
+
 const NotePreviewClient = () => {
   const { id } = useParams();
 
@@ -12,6 +14,11 @@ const NotePreviewClient = () => {
     queryFn: () => fetchNoteById(Number(id)),
     refetchOnMount: false,
   });
+
+  const router = useRouter();
+  const onClose = useCallback(() => {
+    router.back();
+  }, [router]);
 
   if (!note) return <p>Note not found</p>;
 
@@ -25,7 +32,7 @@ const NotePreviewClient = () => {
   });
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <div className={css.container}>
         <p>{note.tag}</p>
         <div className={css.item}>
