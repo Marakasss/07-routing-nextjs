@@ -8,9 +8,10 @@ import { useHover } from "usehooks-ts";
 
 const TagsMenu = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const handleMenuToggle = () => setMenuIsOpen(!menuIsOpen);
+
   const menuRef = useRef<HTMLDivElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
+  const handleMenuToggle = () => setMenuIsOpen(!menuIsOpen);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -37,6 +38,7 @@ const TagsMenu = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   console.log("IsOpen", menuIsOpen);
   console.log("IsHover", isHover);
 
@@ -53,11 +55,7 @@ const TagsMenu = () => {
         <ul className={css.menuList}>
           {tags.map((tag) => (
             <li key={tag} className={css.menuItem}>
-              <Link
-                onTouchEnd={() => setMenuIsOpen(false)}
-                href={`/notes/filter/${tag}`}
-                className={css.menuLink}
-              >
+              <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
                 {tag}
               </Link>
             </li>
