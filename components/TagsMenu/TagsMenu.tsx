@@ -21,6 +21,7 @@ const TagsMenu = () => {
   const isBtnHover = useHover(menuBtnRef as RefObject<HTMLButtonElement>);
   const isMenuHover = useHover(menuRef as RefObject<HTMLDivElement>);
   const isHover = isBtnHover || isMenuHover;
+
   useEffect(() => {
     if (!isHover) {
       const timeOut = setTimeout(() => setMenuIsOpen(false), 300);
@@ -36,6 +37,8 @@ const TagsMenu = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  console.log("IsOpen", menuIsOpen);
+  console.log("IsHover", isHover);
 
   return (
     <div ref={menuRef} className={css.menuContainer}>

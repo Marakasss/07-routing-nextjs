@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 const SidebarNotes = () => {
   const path = usePathname().split("/");
   const activeTag = path[path.length - 1];
-  console.log("Active Tag:", activeTag);
 
   return (
     <ul className={css.menuList}>
