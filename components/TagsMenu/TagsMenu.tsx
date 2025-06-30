@@ -54,7 +54,7 @@ const TagsMenu = () => {
           {tags.map((tag) => (
             <li key={tag} className={css.menuItem}>
               <Link
-                onTouchStart={() => setMenuIsOpen(false)}
+                onTouchEnd={() => setMenuIsOpen(false)}
                 href={`/notes/filter/${tag}`}
                 className={css.menuLink}
               >
