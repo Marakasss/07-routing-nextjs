@@ -1,16 +1,15 @@
 "use client";
 
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
 import { tags } from "@/constants/tags";
-import { useHover } from "usehooks-ts";
 
 const TagsMenu = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-
+  const [isHover, setIsHover] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const menuBtnRef = useRef<HTMLButtonElement>(null);
+
   const handleMenuToggle = () => setMenuIsOpen(!menuIsOpen);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -19,9 +18,12 @@ const TagsMenu = () => {
     }
   };
 
-  const isBtnHover = useHover(menuBtnRef as RefObject<HTMLButtonElement>);
-  const isMenuHover = useHover(menuRef as RefObject<HTMLDivElement>);
-  const isHover = isBtnHover || isMenuHover;
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isHover) {
@@ -32,30 +34,28 @@ const TagsMenu = () => {
     }
   }, [isHover]);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  console.log("IsOpen", menuIsOpen);
-  console.log("IsHover", isHover);
-
   return (
-    <div ref={menuRef} className={css.menuContainer}>
-      <button
-        ref={menuBtnRef}
-        onClick={handleMenuToggle}
-        className={css.menuButton}
-      >
+    <div
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      ref={menuRef}
+      className={css.menuContainer}
+    >
+      <button onClick={handleMenuToggle} className={css.menuButton}>
         Notes ▾
       </button>
       {menuIsOpen && (
         <ul className={css.menuList}>
           {tags.map((tag) => (
             <li key={tag} className={css.menuItem}>
-              <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+              <Link
+                onClick={() => {
+                  setIsHover(false);
+                  setMenuIsOpen(false);
+                }}
+                href={`/notes/filter/${tag}`}
+                className={css.menuLink}
+              >
                 {tag}
               </Link>
             </li>
